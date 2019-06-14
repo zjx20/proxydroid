@@ -15,3 +15,11 @@ before_install:
 - ( sleep 5 && while [ 1 ]; do sleep 1; echo y; done ) | android update sdk --filter extra-android-m2repository --no-ui --no-https -a
 script: 
   - mvn clean install
+deploy:
+  provider: releases
+  api_key: "404d39ba9b5380e1a522914b54a76856a4cb0db1"
+  file: /home/travis/build/ChouBetter/proxydroid/target/proxydroid-2.7.7.apk
+  skip_cleanup: true
+  on:
+    tags: true
+    all_branches: true
