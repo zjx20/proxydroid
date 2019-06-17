@@ -52,6 +52,7 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.IBinder;
 import android.os.Message;
 import android.preference.PreferenceManager;
@@ -471,10 +472,17 @@ public class ProxyDroidService extends Service {
 
     timer.schedule(new TimerTask() {
             public void run() {
+                /*
                 runOnUiThread(new Runnable() {
                     public void run() {
                         notifyAlert("runOnUiThread", new Date().toString());
                         //Toast.makeText(getApplicationContext(), new Date().toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+                */
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), new Date().toString(), Toast.LENGTH_LONG).show();
                     }
                 });
             }
