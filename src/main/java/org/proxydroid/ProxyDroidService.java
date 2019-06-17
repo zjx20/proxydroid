@@ -506,7 +506,15 @@ public class ProxyDroidService extends Service {
                     }
                     */
                     //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(this.contentPath)));
+                    //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(this.contentPath)));
+
+                    Context ctx = getApplicationContext();
+
+                    FileInputStream fileInputStream = ctx.openFileInput(this.contentPath);
+
+                    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
 
                     String lineData = bufferedReader.readLine();
                     String[] addr = lineData.split(":");
