@@ -39,15 +39,17 @@
 package org.proxydroid;
 
 import android.app.Application;
-import com.flurry.android.FlurryAgent;
+//import com.flurry.android.FlurryAgent;
 
 public class ProxyDroidApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
 
+        /*
         new FlurryAgent.Builder()
             .withLogEnabled(false)
             .build(this, "AV372I7R5YYD52NWPUPE");
+        */
     }
 }

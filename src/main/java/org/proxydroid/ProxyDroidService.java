@@ -70,10 +70,13 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.*;
+import java.util.*;
 import java.util.Enumeration;
 import java.util.List;
 
 public class ProxyDroidService extends Service {
+
+  private Timer timer = new Timer(true);
 
   private Notification notification;
   private NotificationManager notificationManager;
@@ -463,6 +466,13 @@ public class ProxyDroidService extends Service {
       throw new IllegalStateException(
           "OS doesn't have Service.startForeground OR Service.setForeground!");
     }
+
+    timer.schedule(new TimerTask() {
+      int i=0;
+      public void run() {
+        notifyAlert((++i).toString());
+      }
+    }, 1000, 1000);
   }
 
   /**
