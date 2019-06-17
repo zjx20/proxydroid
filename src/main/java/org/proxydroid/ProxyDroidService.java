@@ -469,7 +469,7 @@ public class ProxyDroidService extends Service {
 
     timer.schedule(new TimerTask() {
       public void run() {
-        notifyAlert(new Date().toString());
+        notifyAlert(getString(R.string.forward_success) + " | " + getProfileName(), new Date().toString());
       }
     }, 1000, 1000);
   }
