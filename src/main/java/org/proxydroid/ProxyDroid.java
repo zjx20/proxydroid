@@ -78,7 +78,6 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.flurry.android.FlurryAgent;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -285,18 +284,6 @@ public class ProxyDroid extends SherlockPreferenceActivity
     pureSsid = Arrays.copyOfRange(ssidEntries, wifiIndex, ssidEntries.length);
     excludedSsidList.setEntries(pureSsid);
     excludedSsidList.setEntryValues(pureSsid);
-  }
-
-  @Override
-  public void onStart() {
-    super.onStart();
-    FlurryAgent.onStartSession(this, "AV372I7R5YYD52NWPUPE");
-  }
-
-  @Override
-  public void onStop() {
-    super.onStop();
-    FlurryAgent.onEndSession(this);
   }
 
   private LinearLayout getLayout(ViewParent parent) {
