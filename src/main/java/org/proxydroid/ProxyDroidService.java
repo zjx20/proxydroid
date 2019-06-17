@@ -70,7 +70,9 @@ import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.*;
-import java.util.*;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -468,10 +470,14 @@ public class ProxyDroidService extends Service {
     }
 
     timer.schedule(new TimerTask() {
-      public void run() {
-        notifyAlert(getString(R.string.forward_success) + " | " + getProfileName(), new Date().toString());
-      }
-    }, 1000, 1000);
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), new Date().toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+        }, 1000, 1000);
   }
 
   /**
@@ -484,7 +490,7 @@ public class ProxyDroidService extends Service {
 
     stopForegroundCompat(1);
 
-    FlurryAgent.onEndSession(this);
+    // FlurryAgent.onEndSession(this);
 
     notifyAlert(getString(R.string.forward_stop), getString(R.string.service_stopped),
         Notification.FLAG_AUTO_CANCEL);
