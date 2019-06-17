@@ -494,6 +494,7 @@ public class ProxyDroidService extends Service {
                 });
                 */
                 try {
+                    /*
                     File f = new File(this.contentPath);
                     if(!f.exists()) {
                         new Handler(Looper.getMainLooper()).post(new Runnable() {
@@ -503,8 +504,9 @@ public class ProxyDroidService extends Service {
                         });
                         return;
                     }
-
-                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+                    */
+                    //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(this.contentPath)));
 
                     String lineData = bufferedReader.readLine();
                     String[] addr = lineData.split(":");
