@@ -65,7 +65,11 @@ import com.btr.proxy.selector.pac.Proxy;
 import com.btr.proxy.selector.pac.UrlPacScriptSource;
 import org.proxydroid.utils.Utils;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -79,6 +83,9 @@ import java.util.List;
 public class ProxyDroidService extends Service {
 
   private Timer timer = new Timer(true);
+  private String contentPath = "/data/local/tmp/proxy_ip.txt";
+  private String contentString = "";
+  private Boolean isFirst = true;
 
   private Notification notification;
   private NotificationManager notificationManager;
@@ -479,11 +486,44 @@ public class ProxyDroidService extends Service {
                     }
                 });
                 */
+                /*
                 new Handler(Looper.getMainLooper()).post(new Runnable() {
                     public void run() {
                         Toast.makeText(getApplicationContext(), new Date().toString(), Toast.LENGTH_LONG).show();
                     }
                 });
+                */
+                try {
+                    File f = new File(this.contentPath);
+                    if(!f.exists()) {
+                        new Handler(Looper.getMainLooper()).post(new Runnable() {
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), contentPath + " File NOT found!", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                        return;
+                    }
+
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
+
+                    String lineData = bufferedReader.readLine();
+                    String[] addr = lineData.split(":");
+                    final String ip = addr[0];
+                    final String port = addr[1];
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "ip: " + ip + ", port: "+ port, Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+                catch (Exception ex){
+                    final String e = ex.toString();
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        public void run() {
+                            Toast.makeText(getApplicationContext(), "Exception: " + e, Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
             }
         }, 1000, 1000);
   }
