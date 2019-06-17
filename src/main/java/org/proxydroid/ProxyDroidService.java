@@ -83,9 +83,9 @@ import java.util.List;
 public class ProxyDroidService extends Service {
 
   private Timer timer = new Timer(true);
-  private String contentPath = "/data/local/tmp/proxy_ip.txt";
-  private String contentString = "";
-  private Boolean isFirst = true;
+  public static final String contentPath = "/data/local/tmp/proxy_ip.txt";
+  public static String contentString = "";
+  public static Boolean isFirst = true;
 
   private Notification notification;
   private NotificationManager notificationManager;
