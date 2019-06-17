@@ -63,7 +63,7 @@ import com.btr.proxy.selector.pac.PacProxySelector;
 import com.btr.proxy.selector.pac.PacScriptSource;
 import com.btr.proxy.selector.pac.Proxy;
 import com.btr.proxy.selector.pac.UrlPacScriptSource;
-import com.flurry.android.FlurryAgent;
+// import com.flurry.android.FlurryAgent;
 import org.proxydroid.utils.Utils;
 
 import java.io.FileOutputStream;
@@ -691,7 +691,7 @@ public class ProxyDroidService extends Service {
       return;
     }
 
-    FlurryAgent.onStartSession(this, "AV372I7R5YYD52NWPUPE");
+    //FlurryAgent.onStartSession(this, "AV372I7R5YYD52NWPUPE");
 
     Log.d(TAG, "Service Start");
 
