@@ -473,7 +473,8 @@ public class ProxyDroidService extends Service {
             public void run() {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        Toast.makeText(getApplicationContext(), new Date().toString(), Toast.LENGTH_LONG).show();
+                        notifyAlert("runOnUiThread", new Date().toString());
+                        //Toast.makeText(getApplicationContext(), new Date().toString(), Toast.LENGTH_LONG).show();
                     }
                 });
             }
