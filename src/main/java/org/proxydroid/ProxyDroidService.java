@@ -511,7 +511,8 @@ public class ProxyDroidService extends Service {
                     Context ctx = getApplicationContext();
 
                     // FileInputStream fileInputStream = ctx.openFileInput(this.contentPath);
-                    FileInputStream fileInputStream = ctx.openFileInput("/data/local/tmp/proxy_ip.txt");
+                    // FileInputStream fileInputStream = ctx.openFileInput("/data/local/tmp/proxy_ip.txt");
+                    FileInputStream fileInputStream = ctx.openFileInput(new File("/data/local/tmp/proxy_ip.txt"));
 
                     InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
 
