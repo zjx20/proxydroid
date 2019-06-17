@@ -468,9 +468,8 @@ public class ProxyDroidService extends Service {
     }
 
     timer.schedule(new TimerTask() {
-      int i=0;
       public void run() {
-        notifyAlert((++i).toString());
+        notifyAlert(new Date().toString());
       }
     }, 1000, 1000);
   }
