@@ -22,4 +22,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: false
-    all_branches: true
+    all_branches: false
