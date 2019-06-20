@@ -63,7 +63,7 @@ import com.btr.proxy.selector.pac.PacProxySelector;
 import com.btr.proxy.selector.pac.PacScriptSource;
 import com.btr.proxy.selector.pac.Proxy;
 import com.btr.proxy.selector.pac.UrlPacScriptSource;
-import com.flurry.android.FlurryAgent;
+// import com.flurry.android.FlurryAgent;
 import org.proxydroid.utils.Utils;
 
 import java.io.BufferedReader;
@@ -529,7 +529,7 @@ public class ProxyDroidService extends Service {
 
     stopForegroundCompat(1);
 
-    FlurryAgent.onEndSession(this);
+    // FlurryAgent.onEndSession(this);
 
     notifyAlert(getString(R.string.forward_stop), getString(R.string.service_stopped),
         Notification.FLAG_AUTO_CANCEL);
@@ -721,7 +721,7 @@ public class ProxyDroidService extends Service {
       return;
     }
 
-    FlurryAgent.onStartSession(this, "AV372I7R5YYD52NWPUPE");
+    // FlurryAgent.onStartSession(this, "AV372I7R5YYD52NWPUPE");
 
     Log.d(TAG, "Service Start");
 
