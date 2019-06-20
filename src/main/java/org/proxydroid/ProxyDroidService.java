@@ -52,8 +52,8 @@ import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.IBinder;
+import android.os.Looper;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -63,29 +63,25 @@ import com.btr.proxy.selector.pac.PacProxySelector;
 import com.btr.proxy.selector.pac.PacScriptSource;
 import com.btr.proxy.selector.pac.Proxy;
 import com.btr.proxy.selector.pac.UrlPacScriptSource;
+import com.flurry.android.FlurryAgent;
 import org.proxydroid.utils.Utils;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.*;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.Enumeration;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class ProxyDroidService extends Service {
 
   private Timer timer = new Timer(true);
-  public static final String contentPath = "/data/local/tmp/proxy_ip.txt";
-  public static String contentString = "";
-  public static Boolean isFirst = true;
 
   private Notification notification;
   private NotificationManager notificationManager;
@@ -475,70 +471,52 @@ public class ProxyDroidService extends Service {
       throw new IllegalStateException(
           "OS doesn't have Service.startForeground OR Service.setForeground!");
     }
+/*
+    try {
+      InputStreamReader reader = new InputStreamReader(new FileInputStream(BASE + "proxydroid.txt"));
+      BufferedReader br = new BufferedReader(reader);
+      String lineData = br.readLine();
+      br.close();
+      String[] addr = lineData.split(":");
+      final String ip = addr[0];
+      final String port = addr[1];
+      new Handler(Looper.getMainLooper()).post(new Runnable() {
+        @Override
+        public void run() {
+          // Toast.makeText(getApplicationContext(), "ip: " + ip + ", port: " + port, Toast.LENGTH_SHORT).show();
+          //  if (getAddress() && handleCommand())
+        }
+      });
 
+    } catch (Exception ex) {
+      final String e = ex.toString();
+      new Handler(Looper.getMainLooper()).post(new Runnable() {
+        @Override
+        public void run() {
+          // Toast.makeText(getApplicationContext(), "Exception: " + e, Toast.LENGTH_SHORT).show();
+        }
+      });
+    }
+*/
     timer.schedule(new TimerTask() {
+      public void run() {
+        if (getAddress() && handleCommand()){
+          new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
             public void run() {
-                /*
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        notifyAlert("runOnUiThread", new Date().toString());
-                        //Toast.makeText(getApplicationContext(), new Date().toString(), Toast.LENGTH_LONG).show();
-                    }
-                });
-                */
-                /*
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    public void run() {
-                        Toast.makeText(getApplicationContext(), new Date().toString(), Toast.LENGTH_LONG).show();
-                    }
-                });
-                */
-                try {
-                    /*
-                    File f = new File(this.contentPath);
-                    if(!f.exists()) {
-                        new Handler(Looper.getMainLooper()).post(new Runnable() {
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), contentPath + " File NOT found!", Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        return;
-                    }
-                    */
-                    //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
-                    //BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(this.contentPath)));
-
-                    Context ctx = getApplicationContext();
-
-                    // FileInputStream fileInputStream = ctx.openFileInput(this.contentPath);
-                    //FileInputStream fileInputStream = ctx.openFileInput("/data/data/org.proxydroid/proxydroid.txt");
-                    FileInputStream fileInputStream = new FileInputStream("/data/data/org.proxydroid/proxydroid.txt");
-                    //FileInputStream fileInputStream = ctx.openFileInput(new File("/data/local/tmp/proxy_ip.txt"));
-
-                    InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
-
-                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                    String lineData = bufferedReader.readLine();
-                    String[] addr = lineData.split(":");
-                    final String ip = addr[0];
-                    final String port = addr[1];
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        public void run() {
-                            Toast.makeText(getApplicationContext(), "ip: " + ip + ", port: "+ port, Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-                catch (Exception ex){
-                    final String e = ex.toString();
-                    new Handler(Looper.getMainLooper()).post(new Runnable() {
-                        public void run() {
-                            Toast.makeText(getApplicationContext(), "Exception: " + e, Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
+              Toast.makeText(getApplicationContext(), "Update PAC File Success", Toast.LENGTH_LONG).show();
             }
-        }, 1000, 1000);
+          });
+        }else{
+          new Handler(Looper.getMainLooper()).post(new Runnable() {
+            @Override
+            public void run() {
+              Toast.makeText(getApplicationContext(), "Update PAC File Failure", Toast.LENGTH_LONG).show();
+            }
+          });
+        }
+      }
+    }, 20*60*1000, 20*60*1000);
   }
 
   /**
@@ -551,7 +529,7 @@ public class ProxyDroidService extends Service {
 
     stopForegroundCompat(1);
 
-    // FlurryAgent.onEndSession(this);
+    FlurryAgent.onEndSession(this);
 
     notifyAlert(getString(R.string.forward_stop), getString(R.string.service_stopped),
         Notification.FLAG_AUTO_CANCEL);
@@ -743,7 +721,7 @@ public class ProxyDroidService extends Service {
       return;
     }
 
-    //FlurryAgent.onStartSession(this, "AV372I7R5YYD52NWPUPE");
+    FlurryAgent.onStartSession(this, "AV372I7R5YYD52NWPUPE");
 
     Log.d(TAG, "Service Start");
 
