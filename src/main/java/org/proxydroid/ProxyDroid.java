@@ -394,8 +394,6 @@ public class ProxyDroid extends SherlockPreferenceActivity
   @Override
   public void onDestroy() {
 
-    if (adView != null) adView.destroy();
-
     if (ssidReceiver != null) unregisterReceiver(ssidReceiver);
 
     super.onDestroy();
