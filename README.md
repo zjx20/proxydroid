@@ -13,7 +13,7 @@ here is a list of them:
 
 ## TRAVIS CI STATUS
 
-[![Build Status](https://secure.travis-ci.org/madeye/proxydroid.png)](http://travis-ci.org/madeye/proxydroid)
+[![Build Status](https://secure.travis-ci.org/zjx20/proxydroid.png)](http://travis-ci.org/zjx20/proxydroid)
 
 [Nightly Builds](http://buildbot.sinaapp.com)
 
