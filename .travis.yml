@@ -18,7 +18,7 @@ script:
 deploy:
   provider: releases
   api_key: $api_key
-  file: /home/travis/build/ChouBetter/proxydroid/target/proxydroid-2.7.7.apk
+  file: /home/travis/build/zjx20/proxydroid/target/proxydroid-2.7.7.apk
   skip_cleanup: true
   on:
     tags: false
