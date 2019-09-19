@@ -21,6 +21,7 @@ deploy:
   file_glob: true
   file: target/proxydroid-*.apk
   skip_cleanup: true
+  draft: true
   on:
     tags: false
     all_branches: true
